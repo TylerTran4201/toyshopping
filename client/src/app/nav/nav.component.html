@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="">Toy Shopping</a>
+
+
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <ng-container *ngIf="accountService.currentUser$ | async" dropdown>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/toys" routerLinkActive="active">Toys</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">List Like</a>
+        </li>
+      </ng-container>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/errors" routerLinkActive="active">Errors</a>
+      </li>
+    </ul>
+
+    <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+      <img src="{{user.photoUrl || './assets/user.png'}}" alt="user photo">
+      <a class="dropdown-toggle text-light text-decoration-none ms-2" dropdownToggle>Welcome {{user.knownAs}}</a>
+      <ul *dropdownMenu class="dropdown-menu mt-3">
+        <a class="dropdown-item" routerLink="/toy/edit">Edit Profile</a>
+        <a class="dropdown-item" (click)="logout()">Logout</a>
+      </ul>
+    </div>
+
+    <form *ngIf="!(accountService.currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()"
+      autocomplete="off">
+      <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
+      <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password"
+        placeholder="Password">
+      <button class="btn btn-secondary" type="submit" data-dashlane-rid="4d2a4b96e90e22da"
+        data-form-type="">Login</button>
+    </form>
+
+  </div>
+</nav>

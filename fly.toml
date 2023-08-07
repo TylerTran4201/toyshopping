@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for toyshopping on 2023-08-07T02:35:03+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "toyshopping1"  # Add the app field with your app name here
+primary_region = "sin"
+
+[build]
+  image = "tylertran/toyshopping:latest"
+
+[env]
+  ASPNETCORE_URLS="http://+:8080"
+  CloudinarySettings__CloudName="dguv9djof"
+  CloudinarySettings__ApiKey="385536164351534"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
